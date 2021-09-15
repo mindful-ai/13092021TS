@@ -1,3 +1,10 @@
+interface empData{
+    name:string;
+    age: number; 
+    company:string; 
+    salary: number;
+}
+
 class employee{
 
     // ------ data section
@@ -10,11 +17,11 @@ class employee{
 
 
     // ------ constructor
-    constructor(name:string, age: number, company:string, salary: number){
-        this.name = name;
-        this.age = age;
-        this.company = company;
-        this.grossSalary = salary;
+    constructor(data: empData){
+        this.name = data.name;
+        this.age = data.age;
+        this.company = data.company;
+        this.grossSalary = data.salary;
     }
 
     // ------ functions
@@ -36,12 +43,50 @@ class employee{
     }
 }
 
+interface empDataNew extends empData{
+    phone?: string;
+    dob?:string;
+}
+
+class newEmployee extends employee{
+
+    // ---------------- data section: new properties added
+    phone: string;
+    dob: string;
+    age: number;
+
+    constructor(empData: empDataNew){
+        super(empData);
+        this.phone = empData.phone;
+        this.dob = empData.dob;
+
+    }
+
+    // -------------------- functions
+
+    showInfo(): void{
+        super.showInfo();
+        console.log('Phone       : ', this.phone);
+        console.log('Age         : ', this.calcAge());
+        console.log('--------------------------------------');        
+    }
+
+    calcAge(): number{
+        this.age = 30;
+        return this.age;
+    }
+
+
+}
+
 
 // ---------------------------------------------------------------------------------- //
 
-let e1: employee = new employee("Anil", 35, "Oracle", 1500000);
-let e2: employee = new employee("Sunil", 36, "Oracle", 1600000);
-let e3: employee = new employee("Raj", 37, "Oracle", 1700000);
+let d1: empData = {'name':"Anil", 'age': 35, 'company':"Oracle", 'salary': 1500000}
+
+let e1: employee = new newEmployee(d1);
+let e2: employee = new newEmployee(d1);
+let e3: employee = new newEmployee(d1);
 
 let employees: employee[] = [];
 
